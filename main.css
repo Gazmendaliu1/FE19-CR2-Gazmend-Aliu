@@ -111,4 +111,8 @@ p {
   justify-content: center;
   color: white;
   margin-top: 50px;
+}
+
+#sort {
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

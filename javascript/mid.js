@@ -81,7 +81,7 @@ for (let user of todo) {
     <button class="p-2 mb-2 bg-success text-white rounded-pill ">Done</button>   
     <a class="btn btn-primary bg-info btnReset" id="btnRess">Reset</a>
      <h5>Priority level:</h5>  
-     <a class="btn btn-primary bg-danger incBtn" id="incb">${user.number}</a> 
+     <a class="btn btn-primary  incBtn" id="incb">${user.number}</a> 
         
         <div>Chose Date</div>
        
@@ -97,7 +97,7 @@ for (let user of todo) {
 let incBtns = document.getElementsByClassName("incBtn");
 
 
-for (let i in incBtns){
+for (let i in Array.from(incBtns)){
   incBtns[i].addEventListener("click", function()  {
     if (todo[i].number >= 5) {
       todo[i].number = 5} else {
@@ -113,16 +113,21 @@ for (let i in incBtns){
    });
  }
 
- let incBtnsId = document.getElementsById("incb");
+ let incBtnsId = document.getElementById("incb");
 
 
-for (let i in incBtns){
+for (let i in Array.from(incBtns)){
   incBtns[i].addEventListener("click", function()  {
-    if (todo[i].number === 1) {
-      
-     document.getElementById("incBtnsId").style.backgroundColor = '#09abc0';
-
-      }
+    console.log(incBtns[i]);
+    if (todo[i].number < 3) {
+     incBtns[i].style.backgroundColor = 'green';
+    }
+    else if(todo[i].number > 2 && todo[i].number < 5){
+      incBtns[i].style.backgroundColor = 'yellow';
+    }
+    else {
+      incBtns[i].style.backgroundColor = 'red';
+    }
 
     
   
@@ -131,10 +136,44 @@ for (let i in incBtns){
    });
  }
 
+ ;
 
-let resetBtn = document.getElementById("btnRess");
+ document.getElementById("sort").addEventListener("click",function(){
+   todo.sort((a, b) => a.number - b.number)
+   document.getElementById("results").innerHTML = ""
+   for(let val of todo) {
+    document.getElementById("results").innerHTML +=
+    `
+  <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded" style="width: 18rem; ">
+   
+    <img src="${val.picture}" class="card-img-top" alt="...">
+    
+    <div class="card-body mb-2 ">
+      <h5 class="card-title">${val.do1},${val.do2}</h5>
+      <hr>     
       
-for (let i in resetBtn){
+      <button class="p-2 mb-2 bg-danger text-white rounded-pill  btn1">Delete</button>   
+      <button class="p-2 mb-2 bg-success text-white rounded-pill ">Done</button>   
+      <a class="btn btn-primary bg-info btnReset" id="btnRess">Reset</a>
+       <h5>Priority level:</h5>  
+       <a class="btn btn-primary  incBtn" id="incb">${val.number}</a> 
+          
+          <div>Chose Date</div>
+         
+          <input type="date">
+        </div>
+        <hr>  
+    </div>
+  </div>
+  <br><br><br>
+    `
+}
+ })
+
+
+let resetBtn = document.getElementsByClassName("btnRess");
+      
+for (let i in Array.from(resetBtn)){
   resetBtn[i].addEventListener("click", function()  {
     todo[i].number =0;
     
@@ -144,7 +183,8 @@ for (let i in resetBtn){
     //  document.getElementById("incb").style.backgroundColor = "#ffffff"
      console.log(todo[i].number)
    });
+  
+  
  }
 
 
- //// only the numbers are increasing util 5 , the other recomendet to reset and maby to delete i didnt came up to do! :/
